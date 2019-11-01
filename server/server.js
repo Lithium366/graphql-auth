@@ -12,7 +12,7 @@ const schema = require('./schema/schema');
 const app = express();
 
 // Replace with your mongoLab URI
-const MONGO_URI = '';
+const MONGO_URI = 'mongodb+srv://lithium366:FbJWgWAnA5Z08r8T@lyricalgraphql-0epxe.mongodb.net/auth?retryWrites=true&w=majority';
 
 // Mongoose's built in promise library is deprecated, replace it with ES2015 Promise
 mongoose.Promise = global.Promise;
@@ -33,10 +33,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: 'aaabbbccc',
-  store: new MongoStore({
-    url: MONGO_URI,
-    autoReconnect: true
-  })
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 // Passport is wired into express as a middleware. When a request comes in,
