@@ -1,12 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-client';
+import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from 'react-apollo';
 import { Router, hashHistory, Route, IndexRoute } from 'react-router';
 import App from './components/App';
 
+const link = new HttpLink({
+  uri: '/graphql',
+  credentials: 'same-origin',
+});
+
 const client = new ApolloClient({
-  dataIdFromObject: o => o.id
+  dataIdFromObject: o => o.id,
+  link,
 });
 
 const Root = () => {
