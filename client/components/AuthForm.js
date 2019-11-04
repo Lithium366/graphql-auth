@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class LoginForm extends Component {
+class AuthForm extends Component {
   constructor (props) {
     super(props);
 
@@ -26,20 +26,25 @@ class LoginForm extends Component {
   }
 
   render () {
-    const { onFormSubmit } = this.props;
+    const { onFormSubmit, errors } = this.props;
     const { email, password } = this.state;
 
     return (
       <div className="row">
         <form className="cl s4" onSubmit={(e) => onFormSubmit(e, email, password)}>
           <div className="input-field">
-            <label>Email</label>
-            <input value={email} name="email" onChange={this.onEmailChange} />
+            <input placeholder="Email" value={email} name="email" onChange={this.onEmailChange} />
           </div>
           <div className="input-field">
-            <label>Password</label>
-            <input value={password} name="password" type="password" onChange={this.onPasswordChange} />
+            <input placeholder="Password" value={password} name="password" type="password" onChange={this.onPasswordChange} />
           </div>
+          { errors &&
+            <div className="errors">
+              { errors.map(error => (
+                <div key={error}>{error}</div>
+              )) }
+            </div>
+          }
           <div className="input-field">
             <button className="btn" type="submit">Submit</button>
           </div>
@@ -49,4 +54,4 @@ class LoginForm extends Component {
   }
 }
 
-export default LoginForm;
+export default AuthForm;
