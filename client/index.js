@@ -5,6 +5,7 @@ import { HttpLink } from 'apollo-link-http';
 import { ApolloProvider } from 'react-apollo';
 import { Router, hashHistory, Route, IndexRoute } from 'react-router';
 import App from './components/App';
+import LoginForm from './components/LoginForm';
 
 const link = new HttpLink({
   uri: '/graphql',
@@ -21,6 +22,8 @@ const Root = () => {
     <ApolloProvider client={client}>
       <Router history={hashHistory}>
         <Route path="/" component={App}>
+          <Route path="/signup" component={App} />
+          <Route path="/login" component={LoginForm} />
         </Route>
       </Router>
     </ApolloProvider>
