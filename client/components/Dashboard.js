@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from './Header';
-import RequireAuth from './requireAuth';
 
 const Dashboard = () => (
   <div>
