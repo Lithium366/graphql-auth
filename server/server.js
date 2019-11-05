@@ -1,4 +1,5 @@
 const express = require('express');
+const redis = require('redis');
 const models = require('./models');
 const expressGraphQL = require('express-graphql');
 const mongoose = require('mongoose');
@@ -7,6 +8,12 @@ const passport = require('passport');
 const passportConfig = require('./services/auth');
 const MongoStore = require('connect-mongo')(session);
 const schema = require('./schema/schema');
+
+const redisClient = redis.createClient({
+  host: 'redis-server',
+  port: 6379
+});
+redisClient.set('visits', 0);
 
 // Create a new Express application
 const app = express();
@@ -48,6 +55,13 @@ app.use('/graphql', expressGraphQL({
   schema,
   graphiql: true
 }));
+
+app.use('/visits', (req, res) => {
+  redisClient.get('visits', (err, visits) => {
+    res.send('Number of visits is ' + visits);
+    redisClient.set('visits', parseInt(visits, 10) + 1);
+  })
+})
 
 // Webpack runs as a middleware.  If any request comes in for the root route ('/')
 // Webpack will respond with the output of the webpack process: an HTML file and
