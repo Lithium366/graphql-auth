@@ -1,0 +1,22 @@
+version: '3'
+services:
+  redis-server:
+    image: 'redis'
+  node-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    restart: always
+    ports:
+      - "80:4000"
+    volumes:
+      - /usr/app/node_modules
+      - .:/usr/app
+  test:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /usr/app/node_modules
+      - .:/usr/app
+    command: ["npm", "run", "test", "--", "--watchAll"]

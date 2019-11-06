@@ -30,7 +30,7 @@ class LoginForm extends Component {
     });
   }
 
-  componentWillUpdate (nextProps) {
+  UNSAFE_componentWillUpdate (nextProps) {
     if (!this.props.data.user && nextProps.data.user) {
       hashHistory.push('/dashboard');
     }

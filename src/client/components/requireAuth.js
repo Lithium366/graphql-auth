@@ -5,7 +5,7 @@ import currentUser from '../queries/currentUser';
 
 export default (WrappedComponent) => {
   class RequireAuth extends Component {
-    componentWillUpdate(newProps) {
+    UNSAFE_componentWillUpdate(newProps) {
       const { loading, user } = newProps.data;
       if (!loading && !user) {
         hashHistory.push('/login');

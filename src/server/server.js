@@ -50,7 +50,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/public', express.static('dist/client'))
+app.use('/public', express.static(process.env.NODE_ENV === 'production' ? 'client' : 'dist/client'))
 
 // Instruct Express to pass on any request made to the '/graphql' route
 // to the GraphQL instance.

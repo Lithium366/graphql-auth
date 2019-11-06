@@ -1,4 +1,4 @@
-FROM node:12.13-alpine
+FROM node:12.13-alpine as builder
 
 WORKDIR /usr/app
 
@@ -8,4 +8,17 @@ RUN npm install
 
 COPY . .
 
-CMD ["node", "dist/server/server.js"]
+ENV NODE_ENV=production
+
+RUN npm run build
+
+FROM node:12.13-alpine
+
+WORKDIR /usr/webapp
+
+COPY --from=builder /usr/app/dist .
+COPY --from=builder /usr/app/node_modules ./node_modules
+
+ENV NODE_ENV=production
+
+CMD ["node", "server/server.js"]
