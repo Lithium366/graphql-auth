@@ -6,4 +6,18 @@ before_install:
   - docker build -f Dockerfile.dev -t lithium366/graphql-auth .
 
 script:
-  - docker run lithium366/graphql-auth npm run test  -- --coverage 
+  - docker run lithium366/graphql-auth npm run test  -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-west-2"
+  app: "graphql-auth"
+  env: "GraphqlAuth-env"
+  bucket_name: "elasticbeanstalk-us-west-2-983630357560"
+  bucket_path: "graphql-auth"
+  on:
+    branch: master
+  access_key_id:
+    secure: "$AWS_ACCESS_KEY"
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
