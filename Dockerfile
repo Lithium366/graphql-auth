@@ -14,6 +14,8 @@ RUN npm run build
 
 FROM node:12.13-alpine
 
+EXPOSE 80
+
 WORKDIR /usr/webapp
 
 COPY --from=builder /usr/app/dist .
