@@ -3,3 +3,4 @@ dist
 stats*.json
 *.log
 .DS_Store
+coverage

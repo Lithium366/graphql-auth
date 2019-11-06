@@ -1,0 +1,9 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -f Dockerfile.dev -t lithium366/graphql-auth .
+
+script:
+  - docker run lithium366/graphql-auth npm run test  -- --coverage 

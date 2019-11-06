@@ -10,14 +10,3 @@ exports[`renders correctly 1`] = `
   </div>
 </div>
 `;
-
-exports[`renders correctly 1 1`] = `
-<div
-  className="container"
->
-  <Header />
-  <div>
-    test
-  </div>
-</div>
-`;
